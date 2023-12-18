@@ -24,6 +24,7 @@ services:
       - data
     volumes:
       - ./data/postgres:/var/lib/postgresql/data/
+      - ./export:/export
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
