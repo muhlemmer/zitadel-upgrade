@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  zitadel:
+    image: ghcr.io/zitadel/zitadel:${ZITADEL_VERSION:-latest}
+    command: start-from-init --masterkeyFromEnv --tlsMode disabled --config /config/zitadel.yaml
+    environment:
+      ZITADEL_MASTERKEY: ${ZITADEL_MASTERKEY:-MasterkeyNeedsToHave32Characters}
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - data
+    ports:
+      - 9001:8080
+    volumes:
+      - ./config:/config:ro
+
+  db:
+    image: postgres:15
+    restart: always
+    networks:
+      - data
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    healthcheck:
+      test: ["CMD", "pg_isready", "-d", "postgres", "-U", "${POSTGRES_USER:-postgres}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+networks:
+  data:

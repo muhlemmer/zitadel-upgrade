@@ -1,0 +1,55 @@
+Log:
+  Level: debug
+Metrics:
+  Type: none
+Tracing:
+  # Choose one in "otel", "google", "log" and "none"
+  Type: none
+ExternalPort: 9001 # ZITADEL_EXTERNAL_PORT
+ExternalSecure: false
+
+Database:
+  postgres:
+    Host: db
+    Port: 5432
+    Database: zitadel
+    EventPushConnRatio: 0.2 # ZITADEL_DATABASE_COCKROACH_EVENTPUSHCONNRATIO
+    MaxOpenConns: 4
+    User:
+      Username: zitadel # ZITADEL_DATABASE_POSTGRES_USER_USERNAME
+      Password: tei1Xai5Eeso # ZITADEL_DATABASE_POSTGRES_USER_PASSWORD
+      SSL:
+        Mode: disable
+    Admin:
+      Username: postgres # ZITADEL_DATABASE_POSTGRES_ADMIN_USERNAME
+      Password: tei1Xai5Eeso # ZITADEL_DATABASE_POSTGRES_ADMIN_PASSWORD
+      SSL:
+        Mode: disable
+
+SystemDefaults:
+  SecretGenerators:
+    PasswordSaltCost: 5 # ZITADEL_SYSTEMDEFAULTS_SECRETGENERATORS_PASSWORDSALTCOST
+  PasswordHasher:
+  # Set hasher configuration for user passwords.
+  # Passwords previously hashed with a different algorithm
+  # or cost are automatically re-hashed using this config,
+  # upon password validation or update.
+    Hasher:
+      Algorithm: "bcrypt"
+      Cost: 5
+
+Projections:
+  Customizations:
+    Projects:
+      BulkLimit: 50
+      TransactionDuration: 2s
+    message_texts:
+      TransactionDuration: 2s
+      BulkLimit: 400
+    custom_texts:
+      TransactionDuration: 2s
+      BulkLimit: 400
+
+SystemAPIUsers:
+  - system-user-1:
+      Path: /config/system-user-1.pub
