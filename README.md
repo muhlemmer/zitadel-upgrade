@@ -1,4 +1,6 @@
-Upgrade from v2.40.11 to 2.41.8:
+## Upgrade outcomes
+
+#### From v2.40.11 to 2.41.8:
 
 - login to zitadel works fine still. However, there are many "Context Deadline exceeded" errors from the handlers, that never quiet down.
 
@@ -240,4 +242,6 @@ zitadel-1  | time="2023-12-18T19:30:57Z" level=debug msg="trigger iteration" cal
 
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+### v2.41.8 to v2.42.2
 
