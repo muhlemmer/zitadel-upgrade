@@ -14,6 +14,7 @@ Database:
     Port: 5432
     Database: zitadel
     EventPushConnRatio: 0.2 # ZITADEL_DATABASE_COCKROACH_EVENTPUSHCONNRATIO
+    ProjectionSpoolerConnRatio: 0.2 # ZITADEL_DATABASE_COCKROACH_PROJECTIONSPOOLERCONNRATIO
     MaxOpenConns: 4
     User:
       Username: zitadel # ZITADEL_DATABASE_POSTGRES_USER_USERNAME
